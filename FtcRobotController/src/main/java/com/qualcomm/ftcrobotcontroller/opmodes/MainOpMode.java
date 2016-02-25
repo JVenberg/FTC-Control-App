@@ -29,12 +29,15 @@ public class MainOpMode extends OpMode{
     Servo servo_right, servo_left;
     //Tube Servos
     Servo servo_tube,  servo_free;
+    //Wheelie bar
+    Servo servo_wheel;
 
 
 
 
     double rightArmPosition, leftArmPosition;
     double tubeArmPosition, freeArmPositon;
+    double wheelArmPosition;
 
 
     // CONSTRUCTOR and Electronics Diagram
@@ -54,9 +57,9 @@ public class MainOpMode extends OpMode{
                 - X
                     Stop Spinner
             ~ Arm Servos
-                - B
+                - Right Bumper
                     Right-side Arm
-                - Y
+                - Left Bumper
                     Left-side Arm
 
         Gamepad 1 -
@@ -144,11 +147,16 @@ public class MainOpMode extends OpMode{
         //Tube servos
         servo_tube = hardwareMap.servo.get("servo_3");
         servo_free = hardwareMap.servo.get("servo_4");
+        servo_wheel = hardwareMap.servo.get("servo_5");
 
 
-
+        wheelArmPosition = 0;
         rightArmPosition = 0.93;
         leftArmPosition = 0.15;
+        freeArmPositon = 0.4;
+
+        tubeArmPosition = 0.40;
+
 
 
     }
@@ -158,9 +166,12 @@ public class MainOpMode extends OpMode{
     @Override
     public void loop() {
 
+
+
         freeArmPositon = 0.4;
 
         tubeArmPosition = 0.40;
+
 
 
         motorLeftFront.setPower(squareInputs(gamepad2.left_stick_y));
@@ -171,10 +182,20 @@ public class MainOpMode extends OpMode{
 
 
 
-        if(!gamepad2.right_bumper){
+        if(gamepad1.b){
+            wheelArmPosition = 0;
+
+        }
+        if(gamepad1.y){
+            wheelArmPosition = 1;
+        }
+        rightArmPosition = 0.93;
+        leftArmPosition = 0.15;
+
+        if(gamepad2.right_bumper){
             rightArmPosition = 0.30;
         }
-        if(!gamepad2.left_bumper){
+        if(gamepad2.left_bumper){
             leftArmPosition = 0.70;
         }
 
@@ -191,16 +212,26 @@ public class MainOpMode extends OpMode{
         } else {
             linear.setPower(0);
         }
-
-        if (gamepad1.a) {
+        //You just changed the servo controls and you need to add the controls for the wheelie bar and figure out the values
+        if (gamepad1.x) {
             tubeArmPosition = 1;
         }
-        if (gamepad1.right_bumper) {
+        if (gamepad1.a) {
             freeArmPositon = 0;
         }
 
+
+
+
+
         rightArmPosition = Range.clip(rightArmPosition, ARM_MIN_RANGE, ARM_MAX_RANGE);
         leftArmPosition = Range.clip(leftArmPosition, ARM_MIN_RANGE, ARM_MAX_RANGE);
+
+
+
+
+        //yo
+        servo_wheel.setPosition(wheelArmPosition);
 
 
         servo_right.setPosition(rightArmPosition);

@@ -63,6 +63,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
 
         //Auto modes
+        manager.register("Autonomoose", AutoMode4.class);
         manager.register("Child Mode x25", AutoMode3.class);
         manager.register("Child Mode x50", AutoMode2.class);
         manager.register("Child Mode x100", AutoMode1.class);

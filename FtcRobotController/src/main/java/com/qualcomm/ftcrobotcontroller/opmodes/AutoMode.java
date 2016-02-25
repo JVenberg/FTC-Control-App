@@ -54,7 +54,7 @@ public class AutoMode extends LinearOpMode{
         motorRightBack = hardwareMap.dcMotor.get("motor_RB");
 
         motorLeftBack.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        motorRightBack.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        motorRightBack.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motorLeftFront.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorRightFront.setChannelMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
 
@@ -71,8 +71,7 @@ public class AutoMode extends LinearOpMode{
         servo_tube = hardwareMap.servo.get("servo_3");
         servo_free = hardwareMap.servo.get("servo_4");
 
-        rightArmPosition = 0.93;
-        leftArmPosition = 0.15;
+
 
         closeHatch();
     }
